@@ -2,7 +2,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 
-from notebooks.Opdracht_Numpy_DataScience.image_nocolor import create_belgian_flag_with_bw_lion
+#from notebooks.Opdracht_Numpy_DataScience.image_nocolor import create_belgian_flag_with_bw_lion
 
 
 def create_belgian_flag_with_lion(image_path="Belgium_lion.png",flag_height =600,flag_width = 900):
@@ -45,9 +45,9 @@ def display_flag(flag):
     plt.title('Belgian Flag with Lion symbol')
     plt.show()
 
-    try:
-        flag = create_belgian_flag_with_bw_lion()
-        display_flag(flag)
-    except Exception as e:
-        print(f"Error: {e}")
+try:
+    flag = create_belgian_flag_with_lion()
+    display_flag(flag)
+except Exception as e:
+    print(f"Error: {e}")
 

@@ -41,8 +41,8 @@ def display_flag(flag):
     plt.title('Belgian Flag with Lion symbol')
     plt.show()
 
-    try:
-        flag = create_belgian_flag_with_bw_lion()
-        display_flag(flag)
-    except Exception as e:
-        print(f"Error: {str(e)}")
+try:
+    flag = create_belgian_flag_with_bw_lion()
+    display_flag(flag)
+except Exception as e:
+    print(f"Error: {str(e)}")
