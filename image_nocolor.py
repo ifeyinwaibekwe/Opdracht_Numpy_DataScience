@@ -1,34 +1,48 @@
-image = Image.open("Belgium_lion.png")
-image = image.resize((250,250))
-image_array = np.array(image)
+import numpy as np
+from PIL import Image
+import matplotlib.pyplot as plt
 
-#creating flag with 3 stripes
-flag_height =600
-flag_width =900
-stripe_width = flag_width // 3
+def create_belgian_flag_with_bw_lion(image_path="Belgium_lion.png",flag_height = 600,flag_width =900):
 
-#creating base flag array
-flag = np.zeros((flag_height,flag_width,3),dtype= np.uint8) #3 colors , each color value is from 0 to 255
+    image = Image.open(image_path)
+    image = image.resize((250,250))
+    image_array = np.array(image)
 
-#first black stripe
-flag[:,0:stripe_width] = [0,0,0]   #no red,no green,no blue
+    #creating flag with 3 stripes
 
-#middle_strip, yellow stripe
-flag[:, stripe_width:2*stripe_width] = [255,255,0] #pay attention to the slices
+    stripe_width = flag_width // 3
 
-#last red stripe
-flag[:, 2*stripe_width:] = [255,0,0]
+    #creating base flag array
+    flag = np.zeros((flag_height,flag_width,3),dtype= np.uint8) #3 colors , each color value is from 0 to 255
 
-# to get the lion location on the flag
-lion_y = (flag_height - image_array.shape[0]) // 2 #to get how far from up
-lion_x = stripe_width + (stripe_width -image_array.shape[1]) // 2
+    #first black stripe
+    flag[:,0:stripe_width] = [0,0,0]   #no red,no green,no blue
 
-lion_shape = (image_array == 0) # using just the black and white color
-#lion_shape = (image_array[:,:,0] < 128) & (image_array[:,:,1] < 128 ) & (image_array[:,:,2] < 128 ) using the middle threshold 128 since 255 is the brightest.anyvalue below 128 is considered black                                                                                                 
-flag[lion_y:lion_y + image_array.shape[0],lion_x:lion_x + image_array.shape[1]][lion_shape] = [0,0,0]
+    #middle_strip, yellow stripe
+    flag[:, stripe_width:2*stripe_width] = [255,255,0] #pay attention to the slices
 
-plt.figure(figsize=(10,6))
-plt.imshow(flag)
-plt.axis('off')
-plt.title('Belgian Flag with Lion symbol')
-plt.show()
+    #last red stripe
+    flag[:, 2*stripe_width:] = [255,0,0]
+
+    # to get the lion location on the flag
+    lion_y = (flag_height - image_array.shape[0]) // 2 #to get how far from up
+    lion_x = stripe_width + (stripe_width -image_array.shape[1]) // 2
+
+    lion_shape = (image_array == 0) # using just the black and white color
+    #lion_shape = (image_array[:,:,0] < 128) & (image_array[:,:,1] < 128 ) & (image_array[:,:,2] < 128 ) using the middle threshold 128 since 255 is the brightest.any value below 128 is considered black
+    flag[lion_y:lion_y + image_array.shape[0],lion_x:lion_x + image_array.shape[1]][lion_shape] = [0,0,0]
+
+    return flag
+
+def display_flag(flag):
+    plt.figure(figsize=(10,6))
+    plt.imshow(flag)
+    plt.axis('off')
+    plt.title('Belgian Flag with Lion symbol')
+    plt.show()
+
+    try:
+        flag = create_belgian_flag_with_bw_lion()
+        display_flag(flag)
+    except Exception as e:
+        print(f"Error: {str(e)}")
