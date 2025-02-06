@@ -46,3 +46,4 @@ def display_flag(flag):
         display_flag(flag)
     except Exception as e:
         print(f"Error: {str(e)}")
+    #black and white image
